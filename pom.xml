@@ -23,6 +23,22 @@
             <version>${jakartaee}</version>
             <scope>provided</scope>
         </dependency>
+         <dependency>
+            <groupId>org.apache.derby</groupId>
+            <artifactId>derby</artifactId>
+            <version>10.14.2.0</version>
+            <scope>test</scope>
+        </dependency>    
+        <dependency>
+            <groupId>org.apache.derby</groupId>
+            <artifactId>derbyclient</artifactId>
+            <version>10.14.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.derby</groupId>
+            <artifactId>derbynet</artifactId>
+            <version>10.14.2.0</version>
+        </dependency>
     </dependencies>
     
      <build>
