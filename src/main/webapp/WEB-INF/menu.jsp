@@ -15,7 +15,10 @@
       <li class="nav-item active">
         <a class="nav-link" href="${pageContext.request.contextPath}/index.jsp">Home <span class="sr-only">(curent)</span></a>
       </li>
-      <li class="nav-item ${pageContext.request.requestURI eq '/ParkingLot/about.jsp' ? ' active' : ''}">
+      <li class="nav-item ${activePage eq 'Cars' ? ' active' : ''}">
+        <a class="nav-link" href="${pageContext.request.contextPath}/Cars">Cars</a>
+      </li>
+       <li class="nav-item ${pageContext.request.requestURI eq '/ParkingLot/about.jsp' ? ' active' : ''}">
         <a class="nav-link" href="${pageContext.request.contextPath}/about.jsp">About</a>
       </li>
       <li class="nav-item dropdown">
