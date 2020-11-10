@@ -28,7 +28,7 @@ public class UserBean {
     @PersistenceContext
     private EntityManager entityManager;
 
-    private List<UserDetails> getAllUsers() {
+    public List<UserDetails> getAllUsers() {
 
         LOG.info("getAllUsers");
         try {
@@ -40,7 +40,7 @@ public class UserBean {
         }
     }
 
-    private List<UserDetails> copyUsersToDetails(List<User> usersList) {
+    public List<UserDetails> copyUsersToDetails(List<User> usersList) {
         List<UserDetails> detailsList = new ArrayList<UserDetails>();
         for (User user : usersList) {
             UserDetails userDetails = new UserDetails(user.getId(), user.getUsername(), user.getEmail(), user.getPosition());

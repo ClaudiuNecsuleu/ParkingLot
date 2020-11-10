@@ -25,7 +25,7 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "CARS")
-@NamedQuery(name = "Car.FindAll", query = "select c form Car c")
+@NamedQuery(name = "Car.FindAll", query = "select c from Car c")
 public class Car implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -47,10 +47,6 @@ public class Car implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "ParkingSpot")
     private String parkingSpot;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "USER_KEY")
-    private User user;
 
     public int getUserKey() {
         return userKey;
@@ -75,6 +71,10 @@ public class Car implements Serializable {
     public void setParkingSpot(String parkingSpot) {
         this.parkingSpot = parkingSpot;
     }
+    
+    @ManyToOne(fetch= FetchType.LAZY)
+    @JoinColumn(name="USER_KEY")
+    private User user;
 
     public User getUser() {
         return user;
@@ -84,6 +84,8 @@ public class Car implements Serializable {
         this.user = user;
     }
 
+
+    
     public Integer getId() {
         return id;
     }
@@ -92,9 +94,6 @@ public class Car implements Serializable {
         this.id = id;
     }
 
-    @Override
-    public String toString() {
-        return "Car{" + "id=" + id + ", userKey=" + userKey + ", licensePlate=" + licensePlate + ", parkingSpot=" + parkingSpot + ", user=" + user + '}';
-    }
+   
 
 }
