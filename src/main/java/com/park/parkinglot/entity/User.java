@@ -34,17 +34,17 @@ public class User implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "Username")
     private String username;
-    
+
     @NotBlank
     @Size(min = 1, max = 100)
     @Column(name = "Email")
     private String email;
-    
+
     @NotBlank
     @Size(min = 1, max = 32)
     @Column(name = "Position")
     private String position;
-    
+
     @NotBlank
     @Size(min = 1, max = 255)
     @Column(name = "Password")
@@ -98,5 +98,4 @@ public class User implements Serializable {
         return "User{" + "id=" + id + ", username=" + username + ", email=" + email + ", position=" + position + ", password=" + password + '}';
     }
 
-    
 }
