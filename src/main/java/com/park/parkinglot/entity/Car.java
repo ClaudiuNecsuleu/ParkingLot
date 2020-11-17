@@ -34,7 +34,6 @@ public class Car implements Serializable {
     @Column(name = "Id")
     private Integer id;
 
-    @NotBlank
     @Column(name = "UserKey")
     private int userKey;
 

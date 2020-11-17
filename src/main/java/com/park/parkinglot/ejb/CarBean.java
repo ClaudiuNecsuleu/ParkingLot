@@ -7,6 +7,7 @@ package com.park.parkinglot.ejb;
 
 import com.park.parkinglot.common.CarDetails;
 import com.park.parkinglot.entity.Car;
+import com.park.parkinglot.entity.User;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -27,6 +28,12 @@ public class CarBean {
 
     @PersistenceContext
     private EntityManager entityManager;
+    
+    public CarDetails findById(Integer carID)
+    {
+    Car car = entityManager.find(Car.class,carID);
+    return new CarDetails((car.getId()), car.getLicensePlate(), car.getParkingSpot(), car.getUser().getUsername());
+    }
 
     public List<Car> getAllCars() {
         LOG.info("getAllCars");
@@ -56,5 +63,44 @@ public class CarBean {
             detailsList.add(carDetails);
         }
         return detailsList;
+    }
+    
+    public void createCar(String licensePlace ,String parkingSpot,Integer userID)
+    {
+    LOG.info("createCar");
+    Car car=new Car();
+    car.setLicensePlate(licensePlace);
+    car.setParkingSpot(parkingSpot);
+   
+    User user = entityManager.find(User.class,userID);
+    user.getCarList().add(car);
+    car.setUser(user);
+    //entityManager.merge(user);
+    entityManager.persist(car);
+    }
+    
+    public void updateCar(Integer carID , String licensePlace ,String parkingSpot, Integer userID){
+    LOG.info("updateCar");
+    Car car= entityManager.find(Car.class, carID);
+    car.setLicensePlate(licensePlace);
+    car.setParkingSpot(parkingSpot);
+    
+    User oldUser = car.getUser();
+    oldUser.getCarList().remove(car);
+    
+    User user=entityManager.find(User.class, userID);
+    user.getCarList().add(car);
+    car.setUser(user);
+    
+    entityManager.merge(car);
+    }
+    
+    public void deleteCarsByIds(List<Integer> ids){
+    LOG.info("deleteCarsByIds");
+    for(Integer id : ids)
+    {
+    Car car = entityManager.find(Car.class, id);
+    entityManager.remove(car);
+    }
     }
 }

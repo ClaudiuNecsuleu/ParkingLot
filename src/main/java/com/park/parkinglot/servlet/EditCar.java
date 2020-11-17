@@ -1,14 +1,15 @@
-package com.park.parkinglot.servlet;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package com.park.parkinglot.servlet;
+
 import com.park.parkinglot.common.CarDetails;
+import com.park.parkinglot.common.UserDetails;
 import com.park.parkinglot.ejb.CarBean;
+import com.park.parkinglot.ejb.UserBean;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -21,15 +22,25 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Clau
  */
-@WebServlet(urlPatterns = {"/Cars"})
-public class Cars extends HttpServlet {
+@WebServlet(name = "EditCar", urlPatterns = {"/EditCar"})
+public class EditCar extends HttpServlet {
 
     @Inject
-    private CarBean carBean;
-
+    CarBean carBean;
+     @Inject
+    UserBean userBean;
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+   
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -44,14 +55,13 @@ public class Cars extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        request.setAttribute("activePage", "Cars");
- 
-
-        List<CarDetails> cars = carBean.getAllCars2();
-               request.setAttribute("numberOfFreeParkingSports", 10-cars.size());
-        request.setAttribute("cars", cars);
-        request.getRequestDispatcher("cars.jsp").forward(request, response);
+        List<UserDetails> users = userBean.getAllUsers();
+        request.setAttribute("users", users);
+        
+        int carID = Integer.parseInt((request.getParameter("id")));
+        CarDetails car= carBean.findById(carID);
+        request.setAttribute("car", car);
+        request.getRequestDispatcher("editCar.jsp").forward(request, response);
     }
 
     /**
@@ -65,15 +75,13 @@ public class Cars extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    String[] carIdsAsString = request.getParameterValues("car_ids");
-        if(carIdsAsString != null){
-        List<Integer> carIds = new ArrayList<>();
-        for (String carIdAsString : carIdsAsString){
-            carIds.add(Integer.parseInt(carIdAsString));
-        }
-        carBean.deleteCarsByIds(carIds);
-        }
-        response.sendRedirect(request.getContextPath()+ "/Cars");
+       String licensePlate= request.getParameter("license_plate");
+       String parkingSpot = request.getParameter("parking_spot");
+       Integer userID = Integer.parseInt(request.getParameter("owner_id"));
+       Integer carID=Integer.parseInt(request.getParameter("car_id"));
+       
+       carBean.updateCar(carID, licensePlate, parkingSpot, userID);
+       response.sendRedirect(request.getContextPath()+"/Cars");
     }
 
     /**

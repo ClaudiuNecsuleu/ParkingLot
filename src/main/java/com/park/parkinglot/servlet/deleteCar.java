@@ -1,11 +1,10 @@
-package com.park.parkinglot.servlet;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import com.park.parkinglot.common.CarDetails;
+package com.park.parkinglot.servlet;
+
 import com.park.parkinglot.ejb.CarBean;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,15 +20,24 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Clau
  */
-@WebServlet(urlPatterns = {"/Cars"})
-public class Cars extends HttpServlet {
-
+@WebServlet(name = "deleteCar", urlPatterns = {"/deleteCar"})
+public class deleteCar extends HttpServlet {
+    
     @Inject
-    private CarBean carBean;
+    CarBean carBean;
 
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+     
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -44,14 +52,7 @@ public class Cars extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        request.setAttribute("activePage", "Cars");
- 
-
-        List<CarDetails> cars = carBean.getAllCars2();
-               request.setAttribute("numberOfFreeParkingSports", 10-cars.size());
-        request.setAttribute("cars", cars);
-        request.getRequestDispatcher("cars.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -65,7 +66,7 @@ public class Cars extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    String[] carIdsAsString = request.getParameterValues("car_ids");
+      String[] carIdsAsString = request.getParameterValues("car_ids");
         if(carIdsAsString != null){
         List<Integer> carIds = new ArrayList<>();
         for (String carIdAsString : carIdsAsString){
