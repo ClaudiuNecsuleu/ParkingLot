@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.park.parkinglot.servlet;
+package com.park.parkinglot.servlet.car;
 
 import com.park.parkinglot.common.UserDetails;
 import com.park.parkinglot.ejb.CarBean;
@@ -16,12 +16,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.park.parkinglot.ejb.UserBean;
 import java.util.List;
+import javax.servlet.annotation.HttpConstraint;
+import javax.servlet.annotation.ServletSecurity;
 
 /**
  *
  * @author Clau
  */
-@WebServlet(name = "AddCar", urlPatterns = {"/AddCar"})
+
+@ServletSecurity(value = @HttpConstraint(rolesAllowed = {"AdminRole"}))
+@WebServlet(name = "AddCar", urlPatterns = {"/Cars/Create"})
 public class AddCar extends HttpServlet {
 @Inject
 UserBean userBean;
@@ -42,7 +46,7 @@ CarBean carBean;
             throws ServletException, IOException {
        List<UserDetails> users= userBean.getAllUsers();
        request.setAttribute("users", users);
-       request.getRequestDispatcher("addCar.jsp").forward(request, response);
+       request.getRequestDispatcher("/WEB-INF/pages/car/addCar.jsp").forward(request, response);
     }
 
     /**
@@ -71,7 +75,7 @@ CarBean carBean;
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "AddCar v1.0";
     }// </editor-fold>
 
 }

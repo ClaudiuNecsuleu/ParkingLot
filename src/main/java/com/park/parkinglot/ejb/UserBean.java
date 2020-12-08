@@ -39,7 +39,18 @@ public class UserBean {
             throw new EJBException(e);
         }
     }
-
+      
+    public void createUser(String username , String email  , String passwordSha256 , String positin)
+    {
+     User user= new User();
+     user.setUsername(username);
+     user.setEmail(email);
+     user.setPassword(passwordSha256);
+     user.setPosition(positin);
+     
+     entityManager.persist(user);
+    }
+    
     public List<UserDetails> copyUsersToDetails(List<User> usersList) {
         List<UserDetails> detailsList = new ArrayList<UserDetails>();
         for (User user : usersList) {

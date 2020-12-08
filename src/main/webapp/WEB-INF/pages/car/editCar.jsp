@@ -9,7 +9,7 @@
 
 <t:pageTemplate pageTitle="EditCar">
 
-    <form class="needs-validation" novalidate="" method="POST" action="${pageContext.request.contextPath}/EditCar">
+    <form class="needs-validation" novalidate="" method="POST" action="${pageContext.request.contextPath}/Cars/Update">
 
         <div class="row">
             <div class="mb-3">
@@ -34,8 +34,8 @@
         <div class="row">
             <div class="mb-3">
                 <label for="owner_id">Owner</label>
-                <select class="custom-select d-block w-100" name="owner_id" id="owner_id"  required"/>
-                <option value=""">Chose...</option>
+                <select class="custom-select d-block w-100" name="owner_id" id="owner_id"  required/>
+                <option value="">Chose...</option>
                 <c:forEach var="user" items="${users}" varStatus="status">
                     <option value="${user.id}" ${car.username eq user.username ? 'selected' : ''}> ${user.username}</option>
                 </c:forEach>

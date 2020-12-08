@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.park.parkinglot.servlet;
+package com.park.parkinglot.servlet.car;
 
 import com.park.parkinglot.common.CarDetails;
 import com.park.parkinglot.common.UserDetails;
@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.HttpConstraint;
+import javax.servlet.annotation.ServletSecurity;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +24,9 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Clau
  */
-@WebServlet(name = "EditCar", urlPatterns = {"/EditCar"})
+
+@ServletSecurity(value = @HttpConstraint(rolesAllowed = {"AdminRole"}))
+@WebServlet(name = "EditCar", urlPatterns = {"/Cars/Update"})
 public class EditCar extends HttpServlet {
 
     @Inject
@@ -61,7 +65,7 @@ public class EditCar extends HttpServlet {
         int carID = Integer.parseInt((request.getParameter("id")));
         CarDetails car= carBean.findById(carID);
         request.setAttribute("car", car);
-        request.getRequestDispatcher("editCar.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/pages/car/editCar.jsp").forward(request, response);
     }
 
     /**

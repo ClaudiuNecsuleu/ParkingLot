@@ -10,7 +10,7 @@
 
 <t:pageTemplate pageTitle="AddCar">
 <div class="col-md-8 order-md-1">
-    <form class="needs-validation" novalidate="" action="${pageContext.request.contextPath}/AddCar" method="POST">
+    <form class="needs-validation" novalidate="" action="${pageContext.request.contextPath}/Cars/Create" method="POST">
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label for="license_plate">License Plate</label>
