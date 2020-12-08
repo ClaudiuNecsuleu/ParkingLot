@@ -6,6 +6,7 @@
 package com.park.parkinglot.entity;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -74,6 +76,9 @@ public class Car implements Serializable {
     @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name="USER_KEY")
     private User user;
+    
+    @OneToOne(mappedBy = "car",cascade=CascadeType.ALL,fetch = FetchType.LAZY)
+    private Photo photo;
 
     public User getUser() {
         return user;
@@ -91,6 +96,14 @@ public class Car implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Photo getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(Photo photo) {
+        this.photo = photo;
     }
 
    

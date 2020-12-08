@@ -9,7 +9,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <t:pageTemplate pageTitle="Cars">
-   
+
     <h1>Cars</h1>
     <form method="POST" action="${pageContext.request.contextPath}/Cars">
         <a class="btn btn-primary btn-lg" href="${pageContext.request.contextPath}/Cars/Create" role="button">Add Car</a>
@@ -30,6 +30,12 @@
                 <div class="col-md-3">
                     ${car.username}
                 </div>
+                <div class="col-md-1">
+                    <img src="${pageContext.request.contextPath}/Cars/Photos?id=${car.id}" width="48"/>
+                </div>
+                <div class="col-md-2">
+                    <a class="btn btn-dark btn-lg " href="${pageContext.request.contextPath}/Cars/AddPhoto?id=${car.id}" role="button">Add Photo</a>
+                </div>
                 <div class="col-md-2">
                     <a class="btn btn-dark btn-lg " href="${pageContext.request.contextPath}/Cars/Update?id=${car.id}" role="button">Edit car</a>
                 </div>
@@ -37,4 +43,4 @@
         </c:forEach>
     </form>
     <h5> Free parking spots : ${numberOfFreeParkingSports}</h5>
-        </t:pageTemplate>
+</t:pageTemplate>
